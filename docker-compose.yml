@@ -1,0 +1,75 @@
+version: '3.8'
+
+services:
+  server:
+    build: ./server
+    container_name: node_server_container
+    depends_on:
+      - postgres-db
+    env_file:
+      - .env
+    environment:
+      WAIT_HOSTS: postgres-db:5432
+    ports:
+      - 3001:3001
+    volumes:
+      - /app/node_modules
+      - ./server:/app
+    command: npm run dev
+    restart: on-failure
+
+  client:
+    build: ./client
+    container_name: client_container
+    environment:
+      - NODE_PATH=src
+      - WATCHPACK_POLLING=true
+      - CHOKIDAR_USEPOLLING=true
+      - REACT_APP_SERVER_URL=http://localhost:3001
+    ports:
+      - 3000:3000
+    volumes:
+      - ./client/src:/app/src
+    links:
+      - server
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    command: npm start
+
+  postgres-db:
+    container_name: pg_container
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: genfree  
+      POSTGRES_PASSWORD: genfreepass  
+      POSTGRES_DB: GenfreeDB 
+    ports:
+      - "5432:5432"
+    volumes:
+      # ✅ Persistent data volume
+      - genfree_postgres_data:/var/lib/postgresql/data  # Updated volume name
+      # ✅ Optional: keep your init.sql for first-time setup only
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: genfree@genfree.com  
+      PGADMIN_DEFAULT_PASSWORD: genfreepass  
+      GUNICORN_ACCESS_LOGFILE: '/dev/null'
+    ports:
+      - "8080:80"
+    volumes:
+      - ./db/servers.json:/pgadmin4/servers.json
+    logging:
+      driver: none
+
+volumes:
+  genfree_postgres_data:  
+
+networks:
+  default:
+    name: 'genfree_network'  

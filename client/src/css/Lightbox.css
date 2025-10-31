@@ -1,0 +1,81 @@
+/* src/styles/Lightbox.css */
+.lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.lightbox.active {
+    display: flex;
+    opacity: 1;
+}
+
+.lightbox img {
+    max-width: 90%;
+    max-height: 80vh;
+    border-radius: 10px;
+    border: 3px solid #FF4081;
+    box-shadow: 0 4px 10px rgba(255, 64, 129, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.lightbox img:hover {
+    transform: scale(1.02);
+}
+
+.lightbox .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #FF4081;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 24px;
+    font-weight: 700;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.lightbox .close-btn:hover {
+    background-color: #F50057;
+    transform: rotate(90deg);
+}
+
+.lightbox.active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 64, 129, 0.1) 0%, transparent 70%);
+    z-index: -1;
+}
+.lightbox img {
+    border: 3px solid #ff6d75;
+    box-shadow: 0 4px 10px rgba(255, 109, 117, 0.3);
+}
+.lightbox .close-btn {
+    background-color: #ff6d75;
+}
+.lightbox .close-btn:hover {
+    background-color: #ff3d47;
+}
+.lightbox.active::before {
+    background: radial-gradient(circle, rgba(255, 109, 117, 0.1) 0%, transparent 70%);
+}

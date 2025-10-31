@@ -1,0 +1,28 @@
+.loader {
+    border: 12px solid #f5e6f0; /* Light pink-grey for the ring, softer for a dating site */
+    border-radius: 50%;
+    border-top: 12px solid #FF4081; /* Vibrant VBET-inspired pink for the spinning effect */
+    width: 100px; /* Slightly smaller for a more refined look */
+    height: 100px;
+    animation: spin 1.5s linear infinite; /* Faster spin for a lively feel */
+    margin: auto;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

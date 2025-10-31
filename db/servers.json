@@ -1,0 +1,13 @@
+{
+    "Servers": {
+      "1": {
+        "Name": "GenfreeDB Server",
+        "Group": "Server Group 1",
+        "Port": 5432,
+        "Username": "genfree",
+        "Host": "postgres-db",
+        "SSLMode": "prefer",
+        "MaintenanceDB": "GenfreeDB"
+      }
+    }
+}

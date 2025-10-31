@@ -1,0 +1,8 @@
+-- 5️⃣ User Categories
+INSERT INTO user_categories (user_id, category_id, is_active)
+VALUES
+  (1, 1, TRUE),
+  (2, 1, TRUE),
+  (3, 1, TRUE),
+  (4, 3, TRUE)
+ON CONFLICT DO NOTHING;
